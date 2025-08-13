@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchWeather } from '@/store/slices/weatherSlice';
 import { addCity } from '@/store/slices/historySlice';
 import SearchBar from '@/components/SearchBar';
+import HistoryList from '@/components/HistoryList';
 import ThemeToggle from '@/components/ThemeToggle';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -99,6 +100,10 @@ export default function HomePage() {
         <div className="p-3 rounded-lg bg-red-500/20 border border-red-500/40 text-sm text-white">
           {error}
         </div>
+      )}
+
+      {history.length > 0 && (
+        <HistoryList items={history} onPick={onSelectCity} />
       )}
     </div>
   );
