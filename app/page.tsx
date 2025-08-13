@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchWeather } from '@/store/slices/weatherSlice';
 import { addCity } from '@/store/slices/historySlice';
 import SearchBar from '@/components/SearchBar';
+import WeatherCard from '@/components/WeatherCard';
 import HistoryList from '@/components/HistoryList';
 import ThemeToggle from '@/components/ThemeToggle';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -101,6 +102,20 @@ export default function HomePage() {
           {error}
         </div>
       )}
+
+      <AnimatePresence mode="wait">
+        {data && (
+          <motion.div
+            key={cardKey}
+            initial={{ opacity: 0, y: 12, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -12, scale: 0.98 }}
+            transition={{ duration: 0.28, ease: 'easeOut' }}
+          >
+            <WeatherCard data={data} />
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {history.length > 0 && (
         <HistoryList items={history} onPick={onSelectCity} />
